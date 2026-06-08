@@ -1,0 +1,13 @@
+Colocá acá las fotos para la sección galería del sitio.
+
+Archivos esperados:
+- galeria-1.jpg   → foto principal grande (ocupa 2 columnas) — recomendado: Cataratas
+- galeria-2.jpg   → Buenos Aires
+- galeria-3.jpg   → Entre Ríos
+- galeria-4.jpg   → Ruinas jesuíticas
+- galeria-5.jpg   → Teatro Colón o estadio
+- galeria-6.jpg   → Luján u otra foto a elección
+
+Pueden ser las mismas imágenes que en /destinos/ o fotos diferentes.
+Formato recomendado: JPG o WebP
+Tamaño máximo sugerido: 500 KB por imagen

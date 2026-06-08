@@ -1,0 +1,1047 @@
+/* ============================================================
+   VIAJE DE EGRESADOS 2026
+   Colegio Santa Teresita del Niño Jesús — San Rafael, Mendoza
+   ============================================================
+   
+   PALETA DE COLORES
+   -----------------
+   Identidad institucional: rojo y blanco del colegio.
+   Complemento estético:    verde para los destinos naturales.
+   Base:                    negro/oscuro para contraste y elegancia.
+   
+   Si querés ajustar algún color, cambiá las variables en :root
+   y el cambio se aplica en todo el sitio automáticamente.
+   ============================================================ */
+
+/* ============================
+   VARIABLES GLOBALES (tokens)
+   ============================ */
+:root {
+  /* — Identidad Colegio Santa Teresita — */
+  --rojo:           #c0152a;     /* Rojo institucional */
+  --rojo-oscuro:    #8f0f1f;     /* Rojo más profundo para hovers */
+  --rojo-suave:     #f5dde0;     /* Rojo muy claro para fondos */
+
+  /* — Complemento destinos — */
+  --verde:          #1a6b3c;     /* Verde para tags de provincia */
+  --verde-claro:    #2d9b5e;     /* Verde para acentos secundarios */
+  --verde-menta:    #d4f0e0;     /* Verde muy claro para fondos sutiles */
+
+  /* — Neutros — */
+  --negro:          #0d0d0d;
+  --gris-oscuro:    #1a1a1a;
+  --gris-medio:     #2e2e2e;
+  --gris-texto:     #6b7280;
+  --crema:          #faf7f0;
+  --blanco:         #ffffff;
+
+  /* — Acento dorado para detalles premium — */
+  --dorado:         #c9a94b;
+
+  /* — Tipografías — */
+  --font-display:   'Bebas Neue', sans-serif;    /* Títulos grandes */
+  --font-serif:     'Playfair Display', serif;   /* Subtítulos elegantes */
+  --font-body:      'DM Sans', sans-serif;       /* Texto corriente */
+
+  /* — Espaciado — */
+  --section-pad:    6rem 2rem;
+  --max-width:      1100px;
+  --radius:         12px;
+}
+
+
+/* ============================
+   RESET Y BASE
+   ============================ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--negro);
+  color: var(--blanco);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* ============================
+   UTILIDADES COMUNES
+   ============================ */
+
+/* Centra y limita el ancho del contenido */
+.section-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* Etiqueta pequeña encima de cada título de sección */
+.section-tag {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--rojo);
+  margin-bottom: 0.75rem;
+}
+
+/* Título principal de cada sección */
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+}
+
+/* Animación de entrada (aplicada por JS al hacer scroll) */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ============================
+   BARRA DE NAVEGACIÓN
+   ============================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1.2rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.3s, padding 0.3s;
+}
+
+/* La nav se vuelve opaca al hacer scroll (manejado por JS) */
+.navbar.scrolled {
+  background: rgba(13, 13, 13, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 0.8rem 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.navbar-logo {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  letter-spacing: 0.15em;
+  color: var(--blanco);
+}
+
+.navbar-logo span {
+  color: var(--rojo);
+}
+
+.navbar-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.navbar-links a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  transition: color 0.2s;
+}
+
+.navbar-links a:hover {
+  color: var(--blanco);
+}
+
+/* En mobile ocultamos los links de nav */
+@media (max-width: 600px) {
+  .navbar-links { display: none; }
+}
+
+
+/* ============================
+   HERO — Sección principal
+   ============================ */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+/* Imagen de fondo del hero — EDITAR: cambiar en index.html el src de .hero-bg-img */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: brightness(0.3);
+  /* Zoom suave animado */
+  animation: heroZoom 20s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+
+@keyframes heroZoom {
+  from { transform: scale(1.0); }
+  to   { transform: scale(1.08); }
+}
+
+/* Gradiente sobre la imagen para fundir abajo */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(13,13,13,0.1) 0%,
+    rgba(13,13,13,0.65) 100%
+  );
+}
+
+/* Todo el texto del hero va aquí */
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* "PROMOCIÓN 2026 · Colegio Santa Teresita" */
+.hero-tag {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--dorado);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.3s;
+}
+
+/* VIAJE DE EGRESADOS — título principal gigante */
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 14vw, 11rem);
+  line-height: 0.92;
+  color: var(--blanco);
+  letter-spacing: 0.02em;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.5s;
+}
+
+/* La segunda línea "EGRESADOS" en rojo institucional */
+.hero-title .rojo {
+  color: var(--rojo);
+}
+
+/* Subtítulo en cursiva */
+.hero-sub {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  color: rgba(255,255,255,0.65);
+  margin-top: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.7s;
+}
+
+/* Ruta del viaje */
+.hero-ruta {
+  font-size: 0.82rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-top: 1rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.9s;
+}
+
+/* Indicador "scrolleá" abajo del hero */
+.hero-scroll {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 1.5s;
+}
+
+.hero-scroll span {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, var(--rojo), transparent);
+  animation: scrollPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.9); }
+  50%       { opacity: 1;   transform: scaleY(1.1); }
+}
+
+/* Animación base usada en el hero */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ============================
+   ALERTA FECHA LÍMITE
+   Banda roja prominente con el 15 de julio
+   ============================ */
+.alerta-fecha {
+  background: var(--rojo);
+  padding: 1.8rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Textura sutil de fondo */
+.alerta-fecha::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 20px,
+    rgba(0,0,0,0.06) 20px,
+    rgba(0,0,0,0.06) 40px
+  );
+}
+
+.alerta-contenido {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.alerta-icono {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.alerta-texto {
+  text-align: left;
+}
+
+.alerta-titulo {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  letter-spacing: 0.05em;
+  color: var(--blanco);
+  line-height: 1;
+}
+
+.alerta-sub {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+  margin-top: 0.25rem;
+}
+
+.alerta-fecha-destacada {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  color: var(--blanco);
+  letter-spacing: 0.05em;
+  background: rgba(0,0,0,0.25);
+  padding: 0.3rem 1.2rem;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+
+/* ============================
+   CONTADOR REGRESIVO
+   ============================ */
+.contador-section {
+  background: var(--gris-oscuro);
+  padding: 4.5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Patrón de fondo sutil */
+.contador-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle at 50% 50%,
+    rgba(192, 21, 42, 0.06) 0%,
+    transparent 70%
+  );
+}
+
+.contador-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.contador-titulo {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: var(--blanco);
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+/* Los cuatro números (días / horas / min / seg) */
+.contador-grid {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(1rem, 3vw, 3.5rem);
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.contador-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 75px;
+}
+
+.contador-num {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 9vw, 6.5rem);
+  line-height: 1;
+  color: var(--blanco);
+}
+
+/* El número de días en rojo para darle jerarquía */
+.contador-num.dias {
+  color: var(--rojo);
+}
+
+.contador-unit {
+  font-size: 0.68rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.2rem;
+}
+
+/* Los dos puntos separadores */
+.contador-sep {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  color: rgba(255,255,255,0.15);
+  line-height: 1;
+  padding-top: 0.1rem;
+}
+
+.fecha-destino {
+  margin-top: 2.5rem;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.12em;
+  position: relative;
+}
+
+
+/* ============================
+   STATS — Números rápidos
+   ============================ */
+.stats-section {
+  background: var(--crema);
+  color: var(--negro);
+  padding: 5rem 2rem;
+}
+
+.stats-grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.stat-item {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  border-right: 1px solid rgba(0,0,0,0.1);
+}
+
+.stat-item:last-child {
+  border-right: none;
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5rem);
+  color: var(--rojo);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gris-texto);
+  margin-top: 0.4rem;
+}
+
+.stat-desc {
+  font-size: 0.83rem;
+  color: var(--gris-texto);
+  margin-top: 0.2rem;
+}
+
+
+/* ============================
+   TRAILER DE YOUTUBE
+   ============================ */
+.trailer-section {
+  background: var(--negro);
+  padding: var(--section-pad);
+  text-align: center;
+}
+
+.video-wrapper {
+  max-width: 900px;
+  margin: 3rem auto 0;
+  /* Truco para mantener el ratio 16:9 */
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.7);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* ============================
+   GALERÍA DE DESTINOS
+   ============================ */
+.fotos-section {
+  background: var(--negro);
+  padding: var(--section-pad);
+}
+
+/* Grid asimétrico: primera foto ocupa 2 columnas, resto 1 */
+.fotos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 3rem;
+}
+
+.foto-item {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: var(--gris-medio); /* placeholder mientras carga la imagen */
+}
+
+/* La primera foto ocupa el ancho de 2 columnas */
+.foto-item.grande {
+  grid-column: span 2;
+  aspect-ratio: 16/9;
+}
+
+.foto-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease, filter 0.4s ease;
+  filter: brightness(0.82);
+}
+
+.foto-item:hover img {
+  transform: scale(1.06);
+  filter: brightness(1);
+}
+
+/* Texto sobre la foto con gradiente */
+.foto-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.8rem 1.2rem 1rem;
+  background: linear-gradient(transparent, rgba(0,0,0,0.72));
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  pointer-events: none;
+}
+
+
+/* ============================
+   ITINERARIO — Día a día
+   ============================ */
+.itinerario-section {
+  background: #111111;
+  padding: var(--section-pad);
+}
+
+/* Contenedor de todos los días */
+.dias-grid {
+  margin-top: 3rem;
+  display: grid;
+  gap: 2px;
+  background: rgba(255,255,255,0.04);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* Cada fila del itinerario */
+.dia-item {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  background: #111111;
+  transition: background 0.25s;
+}
+
+.dia-item:hover {
+  background: #191919;
+}
+
+/* Columna izquierda: número del día */
+.dia-num-col {
+  background: var(--rojo);           /* Rojo institucional */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0.5rem;
+  min-height: 110px;
+}
+
+/* Días con rango (ej: "1-2") usan un tono algo más claro */
+.dia-num-col.multi {
+  background: var(--rojo-oscuro);
+}
+
+.dia-num {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  color: var(--blanco);
+  line-height: 1;
+}
+
+.dia-num-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-top: 0.1rem;
+}
+
+/* Columna derecha: info del destino */
+.dia-contenido {
+  padding: 1.8rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.45rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.dia-lugar {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--blanco);
+}
+
+.dia-actividades {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+}
+
+/* Chip de provincia */
+.dia-tag-provincia {
+  display: inline-block;
+  font-size: 0.63rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: rgba(45,155,94,0.12);
+  color: var(--verde-claro);
+  padding: 0.2rem 0.7rem;
+  border-radius: 20px;
+  border: 1px solid rgba(45,155,94,0.28);
+  align-self: flex-start;
+}
+
+
+/* ============================
+   PRESUPUESTO
+   ============================ */
+.presupuesto-section {
+  background: var(--crema);
+  color: var(--negro);
+  padding: var(--section-pad);
+}
+
+.presupuesto-section .section-tag {
+  color: var(--rojo);
+}
+
+/* Cuatro categorías del presupuesto */
+.categorias-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.categoria-card {
+  background: var(--blanco);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.categoria-card:hover {
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  transform: translateY(-2px);
+}
+
+.categoria-icon {
+  width: 46px;
+  height: 46px;
+  background: var(--rojo-suave);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.categoria-titulo {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--rojo);
+  margin-bottom: 0.25rem;
+}
+
+.categoria-desc {
+  font-size: 0.84rem;
+  color: var(--gris-texto);
+  line-height: 1.5;
+}
+
+/* Tabla de desglose */
+.tabla-wrap {
+  background: var(--blanco);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+  margin-bottom: 3rem;
+}
+
+.tabla-header {
+  background: var(--rojo);        /* Encabezado rojo institucional */
+  color: var(--blanco);
+  display: grid;
+  grid-template-columns: 1fr 150px;
+  padding: 0.9rem 1.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.tabla-row {
+  display: grid;
+  grid-template-columns: 1fr 150px;
+  padding: 0.8rem 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.88rem;
+  transition: background 0.2s;
+}
+
+.tabla-row:hover {
+  background: #fafafa;
+}
+
+.tabla-row:last-child {
+  border-bottom: none;
+}
+
+.tabla-row.subtotal {
+  background: #fdf5f6;
+  font-weight: 600;
+  color: var(--rojo);
+  border-top: 2px solid var(--rojo-suave);
+}
+
+/* Fila final: fondo rojo, todo en blanco */
+.tabla-row.total-final {
+  background: var(--rojo);
+  color: var(--blanco);
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-top: none;
+}
+
+.monto {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* Tres cards resumen del total */
+.totales-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.total-card {
+  background: var(--blanco);
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+}
+
+/* La card del total final usa el rojo institucional */
+.total-card.destacado {
+  background: var(--rojo);
+  color: var(--blanco);
+}
+
+.total-monto {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+  color: var(--rojo);
+  line-height: 1;
+}
+
+.total-card.destacado .total-monto {
+  color: var(--blanco);
+}
+
+.total-card-label {
+  font-weight: 600;
+  font-size: 0.83rem;
+  margin-top: 0.5rem;
+  color: var(--negro);
+}
+
+.total-card.destacado .total-card-label {
+  color: rgba(255,255,255,0.85);
+}
+
+.total-card-desc {
+  font-size: 0.77rem;
+  color: var(--gris-texto);
+  margin-top: 0.25rem;
+}
+
+.total-card.destacado .total-card-desc {
+  color: rgba(255,255,255,0.6);
+}
+
+/* Nota al pie del presupuesto */
+.nota-presupuesto {
+  margin-top: 2rem;
+  padding: 1.2rem 1.5rem;
+  background: rgba(192,21,42,0.05);
+  border-left: 3px solid var(--rojo);
+  border-radius: 4px;
+  font-size: 0.84rem;
+  color: var(--gris-texto);
+  font-style: italic;
+}
+
+
+/* ============================
+   PRÓXIMOS PASOS
+   ============================ */
+.pasos-section {
+  background: var(--negro);
+  padding: var(--section-pad);
+}
+
+.pasos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.paso-item {
+  padding: 2.5rem;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.paso-item:hover {
+  border-color: rgba(192,21,42,0.4);
+  background: rgba(192,21,42,0.04);
+}
+
+/* Número grande y fantasma */
+.paso-num {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  color: rgba(255,255,255,0.05);
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+
+.paso-titulo {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--rojo);
+  margin-bottom: 0.5rem;
+}
+
+.paso-desc {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.65;
+}
+
+
+/* ============================
+   FOOTER
+   ============================ */
+footer {
+  background: #080808;
+  padding: 3.5rem 2rem;
+  text-align: center;
+  border-top: 3px solid var(--rojo);    /* Franja roja institucional arriba */
+}
+
+.footer-escudo {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.footer-colegio {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 0.5rem;
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--blanco);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.footer-logo span {
+  color: var(--rojo);
+}
+
+.footer-sub {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+
+/* ============================
+   RESPONSIVE — Mobile first
+   ============================ */
+
+/* Tablet */
+@media (max-width: 900px) {
+  .categorias-grid     { grid-template-columns: 1fr; }
+  .totales-grid        { grid-template-columns: 1fr; }
+  .fotos-grid          { grid-template-columns: 1fr 1fr; }
+  .foto-item.grande    { grid-column: span 2; }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .stats-grid          { grid-template-columns: 1fr; }
+  .stat-item           { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.08); }
+  .stat-item:last-child{ border-bottom: none; }
+  .pasos-grid          { grid-template-columns: 1fr; }
+  .fotos-grid          { grid-template-columns: 1fr; }
+  .foto-item.grande    { grid-column: span 1; aspect-ratio: 16/9; }
+  .dia-item            { grid-template-columns: 72px 1fr; }
+  .dia-num             { font-size: 2.2rem; }
+  .dia-contenido       { padding: 1.2rem 1.2rem; }
+  .tabla-row           { font-size: 0.8rem; padding: 0.7rem 1rem; }
+  .tabla-header        { padding: 0.7rem 1rem; }
+  .alerta-contenido    { flex-direction: column; text-align: center; }
+  .alerta-texto        { text-align: center; }
+  .contador-sep        { display: none; }
+}

@@ -1,0 +1,13 @@
+Colocá acá las imágenes de los destinos del itinerario.
+
+Archivos esperados:
+- hero.jpg          → imagen principal del fondo del hero (recomendado: Cataratas)
+- entre-rios.jpg    → Entre Ríos / Palacio San José / Colón
+- corrientes.jpg    → Estancia Las Marías
+- iguazu.jpg        → Cataratas del Iguazú
+- misiones.jpg      → Ruinas jesuíticas San Ignacio Mini
+- buenosaires.jpg   → Buenos Aires / Microcentro / Teatro Colón
+
+Formato recomendado: JPG o WebP
+Tamaño máximo sugerido: 500 KB por imagen
+Orientación: horizontal (16:9 o más ancha)
