@@ -64,7 +64,7 @@
     <div class="hero-content">
 
       <!-- EDITAR: podés cambiar este subtexto -->
-      <p class="hero-tag">Promo 2026 · Santa Teresita del Niño Jesús</p>
+      <p class="hero-tag">Promoción 2026 · Colegio Santa Teresita del Niño Jesús</p>
 
       <!-- Título principal -->
       <h1 class="hero-title">
@@ -681,8 +681,82 @@
   </footer>
 
 
+  <!-- =====================================================
+       REPRODUCTOR FLOTANTE — música ambiente
+       Botón circular fijo abajo a la derecha.
+       Al tocarlo, despliega un mini player de YouTube
+       y empieza a reproducir.
+       EDITAR: si cambia el video, reemplazá el ID "kLBld4rQvUM"
+       ===================================================== -->
+  <div class="player-flotante" id="player-flotante">
+
+    <!-- Mensaje que aparece junto al botón -->
+    <div class="player-mensaje" id="player-mensaje">
+      ¡Dale a play y viví la experiencia completa mientras navegás!
+    </div>
+
+    <!-- Botón circular play/pause -->
+    <button class="player-boton" id="player-boton" aria-label="Reproducir música ambiente">
+      <span id="player-icono">▶</span>
+    </button>
+
+    <!-- Mini reproductor de YouTube (oculto hasta que se activa) -->
+    <div class="player-iframe-wrap" id="player-iframe-wrap">
+      <iframe
+        id="player-iframe"
+        width="0" height="0"
+        src=""
+        title="Música ambiente"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+      ></iframe>
+    </div>
+
+  </div>
+
+
   <!-- Script principal — siempre al final del body -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Script del reproductor flotante de música ambiente -->
+  <script>
+    const playerBoton = document.getElementById('player-boton');
+    const playerIcono = document.getElementById('player-icono');
+    const playerIframe = document.getElementById('player-iframe');
+    const playerMensaje = document.getElementById('player-mensaje');
+    const playerFlotante = document.getElementById('player-flotante');
+
+    // ID del video de YouTube — EDITAR si se quiere cambiar
+    const VIDEO_ID = 'kLBld4rQvUM';
+
+    let reproduciendo = false;
+
+    playerBoton.addEventListener('click', () => {
+      if (!reproduciendo) {
+        // Carga el iframe con autoplay y empieza a sonar
+        playerIframe.src = `https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&loop=1&playlist=${VIDEO_ID}`;
+        playerIcono.textContent = '⏸';
+        playerFlotante.classList.add('activo');
+        reproduciendo = true;
+      } else {
+        // Detiene el video quitando el src
+        playerIframe.src = '';
+        playerIcono.textContent = '▶';
+        playerFlotante.classList.remove('activo');
+        reproduciendo = false;
+      }
+    });
+
+    // Oculta el mensaje después de unos segundos para no estorbar
+    setTimeout(() => {
+      playerMensaje.classList.add('oculto');
+    }, 8000);
+
+    // Si el usuario pasa el mouse o toca el botón, vuelve a mostrar el mensaje brevemente
+    playerBoton.addEventListener('mouseenter', () => {
+      playerMensaje.classList.remove('oculto');
+    });
+  </script>
 
 </body>
 </html>
