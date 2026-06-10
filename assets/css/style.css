@@ -286,6 +286,8 @@ a {
   text-transform: uppercase;
   color: rgba(255,255,255,0.4);
   margin-top: 1rem;
+  /* Espacio abajo para que no se pise con el indicador de scroll */
+  padding-bottom: 5rem;
   opacity: 0;
   animation: fadeUp 0.8s ease forwards 0.9s;
 }
@@ -632,6 +634,33 @@ a {
   font-weight: 500;
   letter-spacing: 0.05em;
   pointer-events: none;
+}
+
+/* Ícono de play que aparece al hacer hover — indica que lleva al trailer */
+.foto-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.7);
+  font-size: 2.5rem;
+  color: var(--blanco);
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  text-shadow: 0 0 20px rgba(0,0,0,0.8);
+}
+
+.foto-item:hover .foto-play {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Cursor pointer porque las fotos son links */
+.foto-item {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 
@@ -1044,4 +1073,65 @@ footer {
   .alerta-contenido    { flex-direction: column; text-align: center; }
   .alerta-texto        { text-align: center; }
   .contador-sep        { display: none; }
+}
+
+
+/* ============================
+   CONTACTO — Sección final
+   ============================ */
+.contacto-section {
+  background: #111111;
+  padding: var(--section-pad);
+  text-align: center;
+}
+
+.contacto-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.contacto-card {
+  background: var(--gris-oscuro);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+  padding: 2.5rem 1.5rem;
+  text-decoration: none;
+  color: var(--blanco);
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contacto-card:hover {
+  border-color: var(--rojo);
+  background: rgba(192,21,42,0.06);
+  transform: translateY(-4px);
+}
+
+.contacto-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.contacto-titulo {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--rojo);
+}
+
+.contacto-desc {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.03em;
+  word-break: break-word;
+}
+
+/* Mobile: una columna */
+@media (max-width: 640px) {
+  .contacto-grid {
+    grid-template-columns: 1fr;
+  }
 }
