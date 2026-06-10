@@ -1145,3 +1145,92 @@ footer {
   letter-spacing: 0.1em;
   color: rgba(255,255,255,0.18);
 }
+
+/* ============================
+   REPRODUCTOR FLOTANTE — música ambiente
+   ============================ */
+.player-flotante {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+/* Botón circular rojo institucional */
+.player-boton {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--rojo);
+  border: none;
+  color: var(--blanco);
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 24px rgba(192,21,42,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  flex-shrink: 0;
+}
+
+.player-boton:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 30px rgba(192,21,42,0.55);
+}
+
+/* Pulso animado mientras está activo */
+.player-flotante.activo .player-boton {
+  animation: playerPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes playerPulse {
+  0%, 100% { box-shadow: 0 6px 24px rgba(192,21,42,0.4); }
+  50%      { box-shadow: 0 6px 36px rgba(192,21,42,0.75); }
+}
+
+/* Mensaje persuasivo al lado del botón */
+.player-mensaje {
+  background: rgba(13,13,13,0.9);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--blanco);
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  max-width: 220px;
+  line-height: 1.4;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+  transition: opacity 0.4s, transform 0.4s;
+  order: -1; /* aparece a la izquierda del botón */
+}
+
+.player-mensaje.oculto {
+  opacity: 0;
+  transform: translateX(10px);
+  pointer-events: none;
+}
+
+/* El iframe queda invisible, solo se usa para el audio */
+.player-iframe-wrap {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Mobile: ocultar el mensaje de texto, dejar solo el botón */
+@media (max-width: 640px) {
+  .player-mensaje {
+    display: none;
+  }
+  .player-flotante {
+    bottom: 1rem;
+    right: 1rem;
+  }
+}
