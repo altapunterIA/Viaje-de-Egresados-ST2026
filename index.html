@@ -20,6 +20,134 @@
 
   <!-- Hoja de estilos principal -->
   <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Estilos del itinerario en línea de tiempo y botón del hero -->
+  <style>
+    /* Botón del hero */
+    .hero-btn {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.8rem 2rem;
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.35);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: background 0.3s, border-color 0.3s;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1.1s;
+    }
+    .hero-btn:hover {
+      background: #c0152a;
+      border-color: #c0152a;
+    }
+
+    /* Línea de tiempo */
+    .timeline {
+      position: relative;
+      padding-left: 0;
+      margin-top: 1rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 90px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #c0152a, rgba(192,21,42,0.08));
+    }
+    .tl-item {
+      display: grid;
+      grid-template-columns: 80px 20px 1fr;
+      gap: 0 1.5rem;
+      margin-bottom: 2.5rem;
+      align-items: flex-start;
+    }
+    .tl-fecha { text-align: right; padding-top: 0.2rem; }
+    .tl-dia {
+      display: block;
+      font-size: 0.63rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+    .tl-num {
+      display: block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: #c0152a;
+      line-height: 1.1;
+    }
+    .tl-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #c0152a;
+      border: 2px solid #111;
+      margin-top: 0.35rem;
+      justify-self: center;
+      position: relative;
+      z-index: 1;
+    }
+    .tl-dot--destaque {
+      background: #fff;
+      border-color: #c0152a;
+      box-shadow: 0 0 0 4px rgba(192,21,42,0.3);
+      width: 18px;
+      height: 18px;
+      margin-top: 0.25rem;
+    }
+    .tl-dot--fin {
+      background: #c9a94b;
+      border-color: #111;
+      box-shadow: 0 0 0 3px rgba(201,169,75,0.25);
+    }
+    .tl-contenido {
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .tl-tag {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: rgba(45,155,94,0.1);
+      color: #2d9b5e;
+      padding: 0.18rem 0.65rem;
+      border-radius: 20px;
+      border: 1px solid rgba(45,155,94,0.25);
+      margin-bottom: 0.5rem;
+    }
+    .tl-lugar {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+    .tl-detalle {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+    }
+    .tl-detalle strong {
+      color: rgba(255,255,255,0.78);
+      font-weight: 600;
+    }
+    @media (max-width: 640px) {
+      .timeline::before { left: 68px; }
+      .tl-item { grid-template-columns: 58px 16px 1fr; gap: 0 0.8rem; }
+      .tl-num { font-size: 1.1rem; }
+      .hero-btn { font-size: 0.75rem; padding: 0.65rem 1.3rem; }
+    }
+  </style>
 </head>
 <body>
 
@@ -79,6 +207,9 @@
       <p class="hero-ruta">
         San Rafael → Entre Ríos → Corrientes → Misiones → Buenos Aires
       </p>
+
+      <!-- Botón que lleva al itinerario detallado -->
+      <a href="#itinerario" class="hero-btn">Ver itinerario completo ↓</a>
 
     </div>
 
@@ -286,132 +417,168 @@
 
       <span class="section-tag">Día a día</span>
       <h2 class="section-title">Itinerario Completo</h2>
+      <p style="color:rgba(255,255,255,0.45); font-size:0.9rem; margin-bottom:3rem; max-width:600px;">
+        10 días, 5 provincias, infinitos momentos. Cada parada fue pensada para que esta experiencia sea única e irrepetible.
+      </p>
 
-      <div class="dias-grid">
+      <div class="timeline">
 
-        <!-- DÍA 1-2: ENTRE RÍOS -->
-        <div class="dia-item">
-          <div class="dia-num-col multi">
-            <div class="dia-num">1-2</div>
-            <div class="dia-num-label">días</div>
+        <!-- DÍA 0: SALIDA -->
+        <div class="tl-item">
+          <div class="tl-fecha">
+            <span class="tl-dia">Dom</span>
+            <span class="tl-num">2/08</span>
           </div>
-          <div class="dia-contenido">
-            <span class="dia-tag-provincia">Entre Ríos</span>
-            <div class="dia-lugar">San Justo → Colón</div>
-            <div class="dia-actividades">
-              <strong>Lunes 3 de agosto:</strong> Palacio San José en San Justo.<br>
-              <strong>Martes 4:</strong> Actividades en Colón. Salida nocturna hacia Corrientes.
+          <div class="tl-dot"></div>
+          <div class="tl-contenido">
+            <span class="tl-tag">San Rafael · Mendoza</span>
+            <div class="tl-lugar">¡Arranca la aventura!</div>
+            <div class="tl-detalle">
+              A las <strong>17 hs</strong> partimos desde San Rafael. El camino ya es parte del viaje.
             </div>
           </div>
         </div>
 
-        <!-- DÍA 3-4: CORRIENTES Y MISIONES -->
-        <div class="dia-item">
-          <div class="dia-num-col multi">
-            <div class="dia-num">3-4</div>
-            <div class="dia-num-label">días</div>
+        <!-- DÍA 1: SAN JUSTO -->
+        <div class="tl-item">
+          <div class="tl-fecha">
+            <span class="tl-dia">Lun</span>
+            <span class="tl-num">3/08</span>
           </div>
-          <div class="dia-contenido">
-            <span class="dia-tag-provincia">Corrientes · Misiones</span>
-            <div class="dia-lugar">Estancia Las Marías → San Ignacio Mini</div>
-            <div class="dia-actividades">
-              <strong>Miércoles 5, mañana:</strong> Experiencia en Establecimiento Las Marías, Gobernador Virasoro.<br>
-              <strong>Mediodía:</strong> Arribo a San Ignacio Mini. Visita a las ruinas jesuíticas.
+          <div class="tl-dot"></div>
+          <div class="tl-contenido">
+            <span class="tl-tag">Entre Ríos</span>
+            <div class="tl-lugar">San Justo · Palacio San José</div>
+            <div class="tl-detalle">
+              Arribo a San Justo y llegada al Polideportivo. A las <strong>7:30 hs</strong> ya estamos en territorio entrerriano. Primera visita del día: el histórico <strong>Palacio San José</strong>, sede del general Urquiza y joya del patrimonio nacional.
             </div>
           </div>
         </div>
 
-        <!-- DÍA 5: CATARATAS DEL IGUAZÚ -->
-        <div class="dia-item">
-          <div class="dia-num-col">
-            <div class="dia-num">5</div>
-            <div class="dia-num-label">día</div>
+        <!-- DÍA 2: COLÓN -->
+        <div class="tl-item">
+          <div class="tl-fecha">
+            <span class="tl-dia">Mar</span>
+            <span class="tl-num">4/08</span>
           </div>
-          <div class="dia-contenido">
-            <span class="dia-tag-provincia">Misiones</span>
-            <div class="dia-lugar">Cataratas del Iguazú</div>
-            <div class="dia-actividades">
-              <strong>Jueves 6 de agosto:</strong> Visita completa a las majestuosas Cataratas del Iguazú.
-              Regreso a San Ignacio Mini para descansar.
+          <div class="tl-dot"></div>
+          <div class="tl-contenido">
+            <span class="tl-tag">Entre Ríos</span>
+            <div class="tl-lugar">Colón · Actividades y salida nocturna</div>
+            <div class="tl-detalle">
+              Jornada de visitas y actividades en <strong>Colón</strong>. A la noche, entre las <strong>23 y 00 hs</strong>, partimos rumbo al norte: nos espera el Establecimiento Las Marías, en Gobernador Virasoro, Corrientes.
             </div>
           </div>
         </div>
 
-        <!-- DÍA 6: REDUCCIONES JESUÍTICAS -->
-        <div class="dia-item">
-          <div class="dia-num-col">
-            <div class="dia-num">6</div>
-            <div class="dia-num-label">día</div>
+        <!-- DÍA 3: LAS MARÍAS + SAN IGNACIO -->
+        <div class="tl-item">
+          <div class="tl-fecha">
+            <span class="tl-dia">Mié</span>
+            <span class="tl-num">5/08</span>
           </div>
-          <div class="dia-contenido">
-            <span class="dia-tag-provincia">Misiones</span>
-            <div class="dia-lugar">Reducciones Jesuíticas</div>
-            <div class="dia-actividades">
-              <strong>Viernes 7:</strong> Visita a Loreto y San Ignacio Mini hasta las 22 hs.
+          <div class="tl-dot"></div>
+          <div class="tl-contenido">
+            <span class="tl-tag">Corrientes · Misiones</span>
+            <div class="tl-lugar">Estancia Las Marías → San Ignacio Mini</div>
+            <div class="tl-detalle">
+              Mañana en el <strong>Establecimiento Las Marías</strong>: una experiencia de estancia única en el corazón de Corrientes. Al mediodía, viaje hacia <strong>San Ignacio Mini</strong>, donde nos instalamos para los días siguientes.
             </div>
           </div>
         </div>
 
-        <!-- DÍA 6-7: PARQUE EL PALMAR -->
-        <div class="dia-item">
-          <div class="dia-num-col multi">
-            <div class="dia-num">6-7</div>
-            <div class="dia-num-label">días</div>
+        <!-- DÍA 4: CATARATAS -->
+        <div class="tl-item">
+          <div class="tl-fecha">
+            <span class="tl-dia">Jue</span>
+            <span class="tl-num">6/08</span>
           </div>
-          <div class="dia-contenido">
-            <span class="dia-tag-provincia">Entre Ríos</span>
-            <div class="dia-lugar">Parque Nacional El Palmar</div>
-            <div class="dia-actividades">
-              Visita al Parque Nacional El Palmar en Colón, Entre Ríos.
+          <div class="tl-dot tl-dot--destaque"></div>
+          <div class="tl-contenido">
+            <span class="tl-tag">Misiones · El gran día</span>
+            <div class="tl-lugar">🌊 Cataratas del Iguazú</div>
+            <div class="tl-detalle">
+              El día más esperado. Visita completa a las <strong>Cataratas del Iguazú</strong>, una de las maravillas naturales del mundo. Al caer la tarde, regreso a San Ignacio Mini para descansar y guardar energías.
+            </div>
+          </div>
+        </div>
+
+        <!-- DÍA 5: REDUCCIONES -->
+        <div class="tl-item">
+          <div class="tl-fecha">
+            <span class="tl-dia">Vie</span>
+            <span class="tl-num">7/08</span>
+          </div>
+          <div class="tl-dot"></div>
+          <div class="tl-contenido">
+            <span class="tl-tag">Misiones</span>
+            <div class="tl-lugar">Reducciones Jesuíticas · Loreto y San Ignacio Mini</div>
+            <div class="tl-detalle">
+              Recorrida por las imponentes <strong>Reducciones Jesuíticas</strong> de Loreto y San Ignacio Mini: ruinas centenarias declaradas Patrimonio de la Humanidad. A las <strong>22 hs</strong>, partimos hacia el <strong>Parque Nacional El Palmar</strong>, en Entre Ríos.
+            </div>
+          </div>
+        </div>
+
+        <!-- DÍA 6: EL PALMAR + VIAJE A CABA -->
+        <div class="tl-item">
+          <div class="tl-fecha">
+            <span class="tl-dia">Sáb</span>
+            <span class="tl-num">8/08</span>
+          </div>
+          <div class="tl-dot"></div>
+          <div class="tl-contenido">
+            <span class="tl-tag">Entre Ríos · Rumbo a Buenos Aires</span>
+            <div class="tl-lugar">Parque Nacional El Palmar → Buenos Aires</div>
+            <div class="tl-detalle">
+              Arribo al <strong>Parque Nacional El Palmar</strong>, hogar de la majestuosa palmera yatay. Después del almuerzo, ponemos rumbo a la capital: la ciudad que nunca duerme nos está esperando.
             </div>
           </div>
         </div>
 
         <!-- DÍA 7: PARQUE DE LA COSTA -->
-        <div class="dia-item">
-          <div class="dia-num-col">
-            <div class="dia-num">7</div>
-            <div class="dia-num-label">día</div>
+        <div class="tl-item">
+          <div class="tl-fecha">
+            <span class="tl-dia">Dom</span>
+            <span class="tl-num">9/08</span>
           </div>
-          <div class="dia-contenido">
-            <span class="dia-tag-provincia">Buenos Aires</span>
-            <div class="dia-lugar">Parque de la Costa · Tigre</div>
-            <div class="dia-actividades">
-              <strong>Domingo 9 de agosto:</strong> Jornada completa en el parque temático de Tigre.
-              Entretenimiento para todos.
+          <div class="tl-dot"></div>
+          <div class="tl-contenido">
+            <span class="tl-tag">Buenos Aires · Tigre</span>
+            <div class="tl-lugar">Parque de la Costa</div>
+            <div class="tl-detalle">
+              Jornada completa en el <strong>Parque de la Costa</strong>, el parque temático más grande de Argentina. Adrenalina, juegos y diversión garantizada para todos.
             </div>
           </div>
         </div>
 
-        <!-- DÍA 8: BUENOS AIRES / CABA -->
-        <div class="dia-item">
-          <div class="dia-num-col">
-            <div class="dia-num">8</div>
-            <div class="dia-num-label">día</div>
+        <!-- DÍA 8: MICROCENTRO + RIVER -->
+        <div class="tl-item">
+          <div class="tl-fecha">
+            <span class="tl-dia">Lun</span>
+            <span class="tl-num">10/08</span>
           </div>
-          <div class="dia-contenido">
-            <span class="dia-tag-provincia">Buenos Aires · CABA</span>
-            <div class="dia-lugar">Microcentro Porteño · Estadio de River</div>
-            <div class="dia-actividades">
-              <strong>Lunes 10 de agosto:</strong> Exploración del Microcentro Porteño
-              y visita al Estadio Monumental de River Plate.
+          <div class="tl-dot"></div>
+          <div class="tl-contenido">
+            <span class="tl-tag">Buenos Aires · CABA</span>
+            <div class="tl-lugar">Microcentro Porteño · Estadio Monumental de River</div>
+            <div class="tl-detalle">
+              Recorrida por el <strong>Microcentro porteño</strong>: la arquitectura, el ritmo y la energía de Buenos Aires de cerca. Por la tarde, visita al imponente <strong>Estadio Monumental de River Plate</strong>.
             </div>
           </div>
         </div>
 
-        <!-- DÍA 9-10: ÚLTIMAS VISITAS Y REGRESO -->
-        <div class="dia-item">
-          <div class="dia-num-col multi">
-            <div class="dia-num">9-10</div>
-            <div class="dia-num-label">días</div>
+        <!-- DÍA 9: LA BOCA + LUJÁN + REGRESO -->
+        <div class="tl-item">
+          <div class="tl-fecha">
+            <span class="tl-dia">Mar</span>
+            <span class="tl-num">11/08</span>
           </div>
-          <div class="dia-contenido">
-            <span class="dia-tag-provincia">Buenos Aires · Regreso</span>
-            <div class="dia-lugar">La Boca · Teatro Colón · Boca Juniors · Luján</div>
-            <div class="dia-actividades">
-              <strong>Martes 11:</strong> Visita a La Boca, Teatro Colón, Estadio de La Bombonera
-              y Basílica de Luján.<br>
-              <strong>Noche:</strong> Salida de regreso hacia San Rafael.
+          <div class="tl-dot tl-dot--fin"></div>
+          <div class="tl-contenido">
+            <span class="tl-tag">Buenos Aires · Cierre del viaje</span>
+            <div class="tl-lugar">La Boca · Luján · Regreso a San Rafael</div>
+            <div class="tl-detalle">
+              Última jornada: visita al barrio de <strong>La Boca</strong> y al mítico estadio de Boca Juniors. Parada emotiva en la <strong>Basílica de Luján</strong> antes del regreso. A la noche, emprendemos el camino de vuelta a San Rafael, cargados de recuerdos que duran toda la vida.
             </div>
           </div>
         </div>
