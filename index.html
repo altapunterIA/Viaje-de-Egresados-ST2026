@@ -147,6 +147,136 @@
       .tl-num { font-size: 1.1rem; }
       .hero-btn { font-size: 0.75rem; padding: 0.65rem 1.3rem; }
     }
+
+    /* ============================================
+       RECORRIDO EN VIVO — roadmap + bitácora
+       ============================================ */
+    .ruta-live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(192,21,42,0.12);
+      border: 1px solid rgba(192,21,42,0.35);
+      color: #ff4d5e;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border-radius: 30px;
+      margin-bottom: 1.2rem;
+    }
+    .ruta-live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ff4d5e;
+      animation: rutaPulso 1.4s ease-in-out infinite;
+    }
+    @keyframes rutaPulso {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.4); }
+    }
+    .ruta-track {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      max-width: 920px;
+      margin: 3rem auto 0;
+      padding: 0 0.5rem;
+    }
+    .ruta-track::before {
+      content: '';
+      position: absolute;
+      top: 11px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: rgba(255,255,255,0.08);
+    }
+    .ruta-progreso {
+      position: absolute;
+      top: 11px;
+      left: 0;
+      height: 2px;
+      width: 0%;
+      background: linear-gradient(to right, #c9a94b, #c0152a);
+      transition: width 0.6s ease;
+    }
+    .ruta-parada {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      min-width: 0;
+    }
+    .ruta-punto {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #111;
+      border: 2px solid rgba(255,255,255,0.15);
+      z-index: 1;
+      transition: all 0.3s;
+    }
+    .ruta-parada--completada .ruta-punto { background: #c9a94b; border-color: #c9a94b; }
+    .ruta-parada--actual .ruta-punto {
+      background: #c0152a;
+      border-color: #c0152a;
+      box-shadow: 0 0 0 6px rgba(192,21,42,0.25);
+      animation: rutaPulso 1.6s ease-in-out infinite;
+    }
+    .ruta-nombre {
+      margin-top: 0.8rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.85);
+      text-align: center;
+      line-height: 1.2;
+      padding: 0 0.2rem;
+    }
+    .ruta-parada--proxima .ruta-nombre { color: rgba(255,255,255,0.35); }
+    .ruta-sub {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.25rem;
+      text-align: center;
+      padding: 0 0.2rem;
+    }
+    .bitacora { max-width: 640px; margin: 3.5rem auto 0; text-align: left; }
+    .bitacora-titulo {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
+    .bitacora-item {
+      display: grid;
+      grid-template-columns: 78px 1fr;
+      gap: 1rem;
+      padding-bottom: 1.4rem;
+      margin-bottom: 1.4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .bitacora-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .bitacora-hora { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: #c9a94b; padding-top: 0.1rem; }
+    .bitacora-lugar { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #fff; margin-bottom: 0.3rem; }
+    .bitacora-item--actual .bitacora-lugar { color: #ff4d5e; }
+    .bitacora-nota { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+    .bitacora-vacio { text-align: center; color: rgba(255,255,255,0.3); font-size: 0.85rem; font-style: italic; }
+    @media (max-width: 640px) {
+      .ruta-track { overflow-x: auto; padding-bottom: 0.5rem; }
+      .ruta-parada { min-width: 88px; }
+      .ruta-nombre { font-size: 0.78rem; }
+      .bitacora-item { grid-template-columns: 55px 1fr; gap: 0.7rem; }
+    }
   </style>
 </head>
 <body>
@@ -241,52 +371,31 @@
 
 
   <!-- =====================================================
-       CONTADOR REGRESIVO
-       Los números son actualizados por main.js cada 1 seg
-       EDITAR: si cambia la fecha de salida, modificá
-       la variable FECHA_SALIDA en assets/js/main.js
+       RECORRIDO EN VIVO
+       Reemplaza al contador regresivo una vez que el viaje
+       arranca. Se actualiza a mano editando el array
+       RECORRIDO más abajo, cerca del final del <body>.
+       EDITAR EN TIEMPO REAL: buscá "RECORRIDO EN VIVO —
+       bitácora del viaje" al final del archivo.
        ===================================================== -->
-  <div class="contador-section">
-    <p class="contador-label">Tiempo restante para la partida</p>
+  <div class="contador-section" id="recorrido">
+    <div class="ruta-live-badge"><span class="ruta-live-dot"></span> Recorrido en vivo</div>
 
-    <!-- EDITAR: si la fecha de salida cambia, actualizá este texto también -->
-    <h2 class="contador-titulo">El viaje comienza el domingo 2 de agosto de 2026</h2>
+    <h2 class="contador-titulo">Dónde estamos ahora</h2>
+    <p class="contador-label" id="ruta-resumen">Cargando última actualización…</p>
 
-    <div class="contador-grid">
-
-      <!-- Días — en rojo para mayor jerarquía -->
-      <div class="contador-item">
-        <div class="contador-num dias" id="cnt-dias">00</div>
-        <div class="contador-unit">días</div>
-      </div>
-
-      <div class="contador-sep">:</div>
-
-      <!-- Horas -->
-      <div class="contador-item">
-        <div class="contador-num" id="cnt-horas">00</div>
-        <div class="contador-unit">horas</div>
-      </div>
-
-      <div class="contador-sep">:</div>
-
-      <!-- Minutos -->
-      <div class="contador-item">
-        <div class="contador-num" id="cnt-min">00</div>
-        <div class="contador-unit">min</div>
-      </div>
-
-      <div class="contador-sep">:</div>
-
-      <!-- Segundos -->
-      <div class="contador-item">
-        <div class="contador-num" id="cnt-seg">00</div>
-        <div class="contador-unit">seg</div>
-      </div>
-
+    <!-- Línea de ruta con las paradas — se genera automáticamente -->
+    <div class="ruta-track" id="ruta-track">
+      <div class="ruta-progreso" id="ruta-progreso"></div>
     </div>
 
-    <p class="fecha-destino">Domingo 2 de agosto · Salida desde San Rafael, Mendoza</p>
+    <!-- Bitácora: anotaciones de por qué/cuándo nos movemos -->
+    <div class="bitacora">
+      <div class="bitacora-titulo">Bitácora del viaje</div>
+      <div id="bitacora-lista"></div>
+    </div>
+
+    <p class="fecha-destino">Esta sección se actualiza a mano a medida que avanza el viaje</p>
   </div>
 
 
@@ -559,7 +668,7 @@
             <div class="tl-lugar">Microcentro Porteño · Estadio Monumental de River</div>
             <div class="tl-detalle">
               Recorrida por el <strong>Microcentro porteño</strong>: arquitectura, historia y el pulso inconfundible de la ciudad. Por la tarde, visita al imponente <strong>Estadio Monumental de River Plate</strong>.
-            </div>
+            </div
           </div>
         </div>
 
@@ -756,7 +865,7 @@
        CONTACTO
        Botones de WhatsApp, Instagram y sitio web del colegio
        EDITAR: si cambia algún número o link, modificalo acá
-       ===================================================== -->
+       ===================================================== --> 
   <section class="contacto-section" id="contacto">
     <div class="section-inner">
 
@@ -849,6 +958,76 @@
 
   </div>
 
+
+  <!-- =====================================================
+       RECORRIDO EN VIVO — bitácora del viaje
+       EDITAR ACÁ para actualizar el mapa mientras viajan:
+         - estado: 'completado' | 'actual' | 'proxima'
+         - hora: hora/fecha real de paso por ese lugar (texto libre)
+         - nota: por qué se mueven, qué pasó, anécdota, etc.
+             (dejala vacía "" si todavía no hay novedad)
+       Solo puede haber UNA parada en estado 'actual' a la vez:
+       marcá la anterior como 'completado' cuando avancen.
+       Después de editar, volvé a subir/deployar el archivo.
+       ===================================================== -->
+  <script>
+    const RECORRIDO = [
+      { lugar: 'San Rafael', sub: 'Partida', estado: 'completado', hora: '22:00 hs · 1 ago', nota: 'Salida de la terminal rumbo a Entre Ríos. ¡Arrancó el viaje!' },
+      { lugar: 'Entre Ríos', sub: 'Palacio San José', estado: 'actual', hora: 'En camino', nota: 'Vamos rumbo a Entre Ríos, primera parada del recorrido.' },
+      { lugar: 'Corrientes', sub: 'Estancia Las Marías', estado: 'proxima', hora: '', nota: '' },
+      { lugar: 'Misiones', sub: 'Cataratas del Iguazú', estado: 'proxima', hora: '', nota: '' },
+      { lugar: 'Buenos Aires', sub: 'CABA', estado: 'proxima', hora: '', nota: '' },
+      { lugar: 'San Rafael', sub: 'Regreso a casa', estado: 'proxima', hora: '', nota: '' },
+    ];
+
+    function renderRecorrido() {
+      const track = document.getElementById('ruta-track');
+      const progreso = document.getElementById('ruta-progreso');
+      const lista = document.getElementById('bitacora-lista');
+      const resumen = document.getElementById('ruta-resumen');
+      if (!track) return;
+
+      const completadas = RECORRIDO.filter(p => p.estado === 'completado').length;
+      const actualIdx = RECORRIDO.findIndex(p => p.estado === 'actual');
+      const totalPasos = RECORRIDO.length - 1;
+      const pasoActual = actualIdx >= 0 ? actualIdx : completadas;
+      progreso.style.width = `${(pasoActual / totalPasos) * 100}%`;
+
+      RECORRIDO.forEach(p => {
+        const claseEstado = p.estado === 'completado' ? 'completada' : p.estado === 'actual' ? 'actual' : 'proxima';
+        const parada = document.createElement('div');
+        parada.className = `ruta-parada ruta-parada--${claseEstado}`;
+        parada.innerHTML = `
+          <div class="ruta-punto"></div>
+          <div class="ruta-nombre">${p.lugar}</div>
+          <div class="ruta-sub">${p.sub}</div>
+        `;
+        track.appendChild(parada);
+      });
+
+      const conNota = RECORRIDO.filter(p => p.nota);
+      if (conNota.length) {
+        lista.innerHTML = conNota.map(p => `
+          <div class="bitacora-item ${p.estado === 'actual' ? 'bitacora-item--actual' : ''}">
+            <div class="bitacora-hora">${p.hora}</div>
+            <div>
+              <div class="bitacora-lugar">${p.lugar}${p.estado === 'actual' ? ' — ahora' : ''}</div>
+              <div class="bitacora-nota">${p.nota}</div>
+            </div>
+          </div>
+        `).join('');
+      } else {
+        lista.innerHTML = `<div class="bitacora-vacio">Todavía no hay novedades cargadas.</div>`;
+      }
+
+      const paradaActual = RECORRIDO[actualIdx];
+      resumen.textContent = paradaActual
+        ? `Ahora mismo: rumbo a ${paradaActual.lugar}`
+        : 'Viaje finalizado — ¡gracias por acompañarnos!';
+    }
+
+    renderRecorrido();
+  </script>
 
   <!-- Script principal — siempre al final del body -->
   <script src="assets/js/main.js"></script>
