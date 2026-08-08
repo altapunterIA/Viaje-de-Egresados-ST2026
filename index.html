@@ -266,6 +266,7 @@
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
     .bitacora-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .bitacora-item--sin-hora { grid-template-columns: 1fr; }
     .bitacora-hora { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: #c9a94b; padding-top: 0.1rem; }
     .bitacora-lugar { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #fff; margin-bottom: 0.3rem; }
     .bitacora-item--actual .bitacora-lugar { color: #ff4d5e; }
@@ -973,9 +974,9 @@
     const RECORRIDO = [
       { lugar: 'San Rafael', sub: 'Partida', estado: 'completado', hora: '22:00 hs · 1 ago', nota: 'Salida de la terminal rumbo a Entre Ríos. ¡Arrancó el viaje!' },
       { lugar: 'Entre Ríos', sub: 'Palacio San José', estado: 'completado', hora: 'En camino', nota: 'Vamos rumbo a Entre Ríos, primera parada del recorrido.' },
-      { lugar: 'Corrientes', sub: 'Estancia Las Marías', estado: 'completado', hora: '', nota: '¡Qué manera de tomar mate! ¡Aguante la Odisea!' }, 
-      { lugar: 'Misiones', sub: 'Cataratas del Iguazú', estado: 'completado', hora: '', nota: '¡Hermoso día! ¡Inolvidable!' },
-      { lugar: 'El Palmar', sub: 'Parque Nacional', estado: 'actual', hora: '', nota: 'Salimos de Misiones rumbo al Parque Nacional El Palmar.' },
+      { lugar: 'Corrientes', sub: 'Estancia Las Marías', estado: 'completado', hora: '5 ago', nota: '¡Qué manera de tomar mate! ¡Aguante la Odisea!' }, 
+      { lugar: 'Misiones', sub: 'Cataratas del Iguazú', estado: 'completado', hora: '6-7 ago', nota: '¡Hermoso día! ¡Inolvidable!' },
+      { lugar: 'El Palmar', sub: 'Parque Nacional', estado: 'actual', hora: '8 ago', nota: 'Salimos de Misiones rumbo al Parque Nacional El Palmar.' },
       { lugar: 'Buenos Aires', sub: 'CABA', estado: 'proxima', hora: '', nota: '¡Se viene la Ciudad de la Furia!' },
       { lugar: 'San Rafael', sub: 'Regreso a casa', estado: 'proxima', hora: '', nota: '' },
     ];
@@ -1008,8 +1009,8 @@
       const conNota = RECORRIDO.filter(p => p.nota);
       if (conNota.length) {
         lista.innerHTML = conNota.map(p => `
-          <div class="bitacora-item ${p.estado === 'actual' ? 'bitacora-item--actual' : ''}">
-            <div class="bitacora-hora">${p.hora}</div>
+          <div class="bitacora-item ${p.estado === 'actual' ? 'bitacora-item--actual' : ''} ${p.hora ? '' : 'bitacora-item--sin-hora'}">
+            ${p.hora ? `<div class="bitacora-hora">${p.hora}</div>` : ''}
             <div>
               <div class="bitacora-lugar">${p.lugar}${p.estado === 'actual' ? ' — ahora' : ''}</div>
               <div class="bitacora-nota">${p.nota}</div>
